@@ -1,9 +1,9 @@
 /* eslint-disable no-trailing-spaces */
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('./base.js');
 
-class ManagerController extends Controller {
+class ManagerController extends BaseController {
   async index() {
     await this.ctx.render('/admin/manager/index');
   }

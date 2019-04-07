@@ -1,10 +1,14 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('./base.js');
 
-class LoginController extends Controller {
+class LoginController extends BaseController {
   async index() {
     await this.ctx.render('/admin/login');
+  }
+
+  async doLogin() {
+    await this.success('/admin/login');
   }
 }
 
