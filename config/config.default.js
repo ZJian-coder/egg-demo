@@ -16,11 +16,13 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1554298073279_162';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [ 'adminauth' ];
+  config.adminauth = {
+    match: '/admin',
+  };
 
   // add your user config here
   const userConfig = {
-    // myAppName: 'egg',
     view: {
       mapping: {
         '.html': 'ejs',
@@ -32,6 +34,12 @@ module.exports = appInfo => {
       httpOnly: true,
       encrypt: true, // 加密
       renew: true, // 延长回话有效期
+    },
+    mongoose: {
+      client: {
+        url: 'mongodb://admin:zjian2admin@127.0.0.1:27017/admin',
+        options: {},
+      },
     },
   };
 
