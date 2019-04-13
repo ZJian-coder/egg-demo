@@ -37,7 +37,7 @@ module.exports = appInfo => {
     },
     mongoose: {
       client: {
-        url: 'mongodb://admin:zjian2admin@127.0.0.1:27017/admin',
+        url: 'mongodb://zjian:zjian2zjian@127.0.0.1:27017/ZJNote',
         options: {},
       },
     },
