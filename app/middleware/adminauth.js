@@ -7,6 +7,7 @@ module.exports = options => {
   return async function adminauth(ctx, next) {
     const pathname = url.parse(ctx.request.url).pathname;
     ctx.state.csrf = ctx.csrf; // 设置全局变量
+    ctx.state.prevPage = ctx.request.headers.referer;
     if (ctx.session.userinfo) {
       ctx.state.userinfo = ctx.session.userinfo;
       await next();

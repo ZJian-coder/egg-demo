@@ -31,7 +31,7 @@
                         <td><%=roleInfo[i].title%></td>
                         <td><%=roleInfo[i].description%></td>
                         <td><%=roleInfo[i].add_time%></td>
-                        <td class="text-center"><a href="/admin/role/edit?_id=<%=roleInfo[i]._id%>">修改</a>   <a href="">删除</a> </td>
+                        <td class="text-center"><a href="/admin/role/edit?_id=<%=roleInfo[i]._id%>">修改</a>   <a href="/admin/delete?model=Role&_id=<%=roleInfo[i]._id%>">删除</a> </td>
                     </tr>
                     <%}%>
                     </tbody>
