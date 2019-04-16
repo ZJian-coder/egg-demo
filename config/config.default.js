@@ -30,7 +30,7 @@ module.exports = appInfo => {
     },
     session: {
       key: 'SESSION_ZJNote',
-      maxAge: 864000,
+      maxAge: 8640000,
       httpOnly: true,
       encrypt: true, // 加密
       renew: true, // 延长回话有效期
