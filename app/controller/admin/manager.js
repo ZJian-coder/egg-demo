@@ -13,7 +13,7 @@ class ManagerController extends BaseController {
         as: 'role',
       },
     }]);
-    console.log(JSON.stringify(adminList));
+    // console.log(JSON.stringify(adminList));
     await this.ctx.render('/admin/manager/index', {
       adminList,
     });
@@ -41,7 +41,37 @@ class ManagerController extends BaseController {
   }
 
   async edit() {
-    await this.ctx.render('/admin/manager/edit');
+    const _id = this.ctx.request.query._id;
+    const adminInfo = await this.ctx.model.Admin.findById(_id);
+    const roleList = await this.ctx.model.Role.find();
+    await this.ctx.render('/admin/manager/edit', {
+      adminInfo,
+      roleList,
+    });
+  }
+
+  async doEdit() {
+    const adminInfo = this.ctx.request.body;
+    const password = adminInfo.password;
+    if (password == '') {
+      await this.ctx.model.Admin.update({
+        _id: adminInfo._id,
+      }, {
+        mobile: adminInfo.mobile,
+        email: adminInfo.email,
+        role_id: adminInfo.role_id,
+      });
+    } else {
+      await this.ctx.model.Admin.update({
+        _id: adminInfo._id,
+      }, {
+        mobile: adminInfo.mobile,
+        email: adminInfo.email,
+        role_id: adminInfo.role_id,
+        password: await this.ctx.service.tools.md5(password),
+      });
+    }   
+    await this.success('/admin/manager', '编辑管理员成功');
   }
 }
 

@@ -10,31 +10,30 @@
           
             <div class="panel panel-default">              
 			    <div class="panel-heading">
-                  增加商品
+                  修改管理员
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive input-form">
-                        <form action="/doAdd" method="post">
+                        <form action="/admin/manager/doEdit" method="post">
+                            <input type="hidden" name="_csrf" value="<%=csrf%>">
+                            <input type="hidden" name="_id" value="<%=adminInfo._id%>">
                             <ul>
-                                <li>  商品名称: <input type="text" name="title"/></li>
+                                <li>名称: <input type="text" name="username" value="<%=adminInfo.username%>" /></li>
 
-                                <li>  商品图片: <input type="file" name="pic"/></li>
-                                <li>  商品价格: <input type="text" name="price"/></li>
-                                <li>  商品邮费: <input type="text" name="fee"/></li>
-
+                                <li>密码: <input type="password" name="password" /></li>
+                                <li>手机: <input type="text" name="mobile" value="<%=adminInfo.mobile%>" /></li>
+                                <li>邮箱: <input type="text" name="email" value="<%=adminInfo.email%>" /></li>
+                                <li>角色: <select name="role_id">
+                                    <%for(var i=0; i<roleList.length; i++){%>
+                                        <option value="<%=roleList[i]._id%>" <%=roleList[i]._id.toString()==adminInfo.role_id.toString()?"selected=selected":""%> ><%=roleList[i].title%></option>
+                                    <%}%>
+                                </select></li>
                                 <li>
-                                    商品描述:
-                                    <textarea name="description" id="" cols="60" rows="8"></textarea>
-                                </li>
-
-                                <li>
-                                    <br/>
+                                    <br />
                                     <button type="submit" class="btn btn-default">提交</button>
                                 </li>
 
                             </ul>
-
-
                         </form>
                     </div>
                 </div>

@@ -47,7 +47,7 @@
                         <td><%=adminList[i].mobile%></td>
                         <td><%=adminList[i].email%></td>
                         <td><%=adminList[i].role[0].title%></td>                   
-                        <td class="text-center">修改  删除</td>
+                        <td class="text-center"><a href="/admin/manager/edit?_id=<%=adminList[i]._id%>">修改</a>  <a href="/admin/delete?model=Admin&_id=<%=adminList[i]._id%>">删除</a></td>
                     </tr>
                     <%}%>
                     </tbody>
