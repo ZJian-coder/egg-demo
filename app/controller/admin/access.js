@@ -29,10 +29,9 @@ class AccessController extends BaseController {
   }
 
   async add() {
-    const accessInfo = await this.ctx.model.Access.find({ module_id: '0' });
-    console.log(accessInfo);
+    const moduleList = await this.ctx.model.Access.find({ module_id: '0' });
     await this.ctx.render('/admin/access/add', {
-      accessInfo,
+      moduleList,
     });
   }
 
@@ -48,7 +47,24 @@ class AccessController extends BaseController {
   }
 
   async edit() {
-    await this.ctx.render('/admin/access/edit');
+    const moduleList = await this.ctx.model.Access.find({ module_id: '0' });
+    const _id = this.ctx.request.query._id;
+    const accessInfo = (await this.ctx.model.Access.find({ _id }))[0];
+    await this.ctx.render('/admin/access/edit', {
+      moduleList,
+      accessInfo,
+    });
+  }
+
+  async doEdit() {
+    const accessInfo = this.ctx.request.body;
+    const _id = accessInfo._id;
+    const module_id = accessInfo.module_id;
+    if (module_id !== '0') {
+      accessInfo.module_id = this.app.mongoose.Types.ObjectId(module_id); // 调用mongoose里面的方法把字符串转换成ObjectId
+    }
+    await this.ctx.model.Access.updateOne({ _id }, accessInfo);
+    await this.success('/admin/access', '编辑权限成功');
   }
 }
 

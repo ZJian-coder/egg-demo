@@ -40,8 +40,8 @@
                                     <li>  所属模块:
                                             <select name="module_id">
                                                     <option value="0">---顶级模块--</option>
-                                                    <%for(var i=0;i<accessInfo.length;i++){%>
-                                                        <option value="<%=accessInfo[i]._id%>"><%=accessInfo[i].module_name%></option>
+                                                    <%for(var i=0;i<moduleList.length;i++){%>
+                                                        <option value="<%=moduleList[i]._id%>"><%=moduleList[i].module_name%></option>
                                                     <%}%>
                                             </select>
                                     </li>

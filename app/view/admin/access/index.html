@@ -67,7 +67,7 @@
 
                                 <td><%=accessList[i].description%></td>
                             
-                                <td class="text-center">修改  删除</td>
+                                <td class="text-center"><a href="/admin/access/edit?_id=<%=accessList[i]._id%>">修改</a></td>
                             </tr>
 
                             <%for(var j=0;j<accessList[i].items.length;j++){%>
@@ -89,7 +89,7 @@
                 
                                                 <td><%=accessList[i].items[j].description%></td>
                                             
-                                                <td class="text-center">修改  删除</td>
+                                                <td class="text-center"><a href="/admin/access/edit?_id=<%=accessList[i].items[j]._id%>">修改</a>  <a href="/admin/delete?_id=<%=accessList[i].items[j]._id%>&model=Access">删除</a></td>
                                             </tr>
 
                             <%}%>
