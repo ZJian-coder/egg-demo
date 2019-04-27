@@ -31,7 +31,7 @@
                                     <tr>
                                         <td align="right" style="background: #D8E2FA; padding-right: 10px; width: 150px;">
                                             <label>
-                                                <input type="checkbox" class="module_cbo" value="<%=accessList[i]._id %>" name="access_node[]">&nbsp;&nbsp;
+                                                <input type="checkbox" <%if(accessList[i].checked){%> checked <%}%> class="module_cbo" value="<%=accessList[i]._id %>" name="access_node[]">&nbsp;&nbsp;
                                                     <%=accessList[i].module_name %>                       
                                             </label>
                                         </td>
@@ -41,7 +41,7 @@
                                             <%for(var j=0;j<accessList[i].items.length;j++){%> 
                                                 &nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" class="action_cbo" value="<%=accessList[i].items[j]._id%>" name="access_node[]">
+                                                        <input type="checkbox" <%if(accessList[i].items[j].checked){%> checked <%}%> class="action_cbo" value="<%=accessList[i].items[j]._id%>" name="access_node[]">
                                                         &nbsp;&nbsp;<%=accessList[i].items[j].action_name%>                   			</label>&nbsp;&nbsp;
                                             <%}%>      
                                         </td>
