@@ -11,6 +11,7 @@ module.exports = app => {
   router.get('/admin/loginOut', controller.admin.login.loginOut);
   router.get('/admin/verify', controller.admin.base.verify);
   router.get('/admin/delete', controller.admin.base.delete);
+  router.get('/admin/changeStatus', controller.admin.base.changeStatus);
   router.get('/admin/manager', controller.admin.manager.index);
   router.get('/admin/manager/add', controller.admin.manager.add);
   router.post('/admin/manager/doAdd', controller.admin.manager.doAdd);

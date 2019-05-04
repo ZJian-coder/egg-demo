@@ -33,6 +33,31 @@ class BaseController extends Controller {
     // 跳转到执行删除的页面
     this.ctx.redirect(this.ctx.state.prevPage);
   }
+
+  async changeStatus() {
+    const model = this.ctx.request.query.model;
+    const attr = this.ctx.request.query.attr;
+    const _id = this.ctx.request.query._id;
+    const result = await this.ctx.model[model].find({ _id });
+    if (result.length > 0) {
+      let json = {
+        [attr]: 1,
+      };
+      if (result[0][attr] === 1) {
+        json = {
+          [attr]: 0,
+        };
+      }
+      const updateResult = await this.ctx.model[model].updateOne({ _id }, json);
+      if (updateResult) {
+        this.ctx.body = { msg: '更新成功', success: 'true' };
+      } else {
+        this.ctx.body = { msg: '更新失败', success: 'false' };
+      }
+    } else {
+      this.ctx.body = '参数错误！';
+    }
+  }
 }
 
 module.exports = BaseController;
