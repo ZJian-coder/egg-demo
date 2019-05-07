@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable no-undef */
 // eslint-disable-next-line strict
 $(function() {
 
@@ -12,7 +15,7 @@ function changeStatus(ele, model, attr, _id) {
 	  if (data.success === 'true') {
       if ($(ele).text() === '启用') {
         $(ele).text('禁用');
-      } else{
+      } else {
         $(ele).text('启用');
       }
 	  }
