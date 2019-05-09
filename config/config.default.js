@@ -41,6 +41,9 @@ module.exports = appInfo => {
         options: {},
       },
     },
+    multipart: {
+      mode: 'file', // 开启文件上传的file模式
+    },
   };
 
   return {
