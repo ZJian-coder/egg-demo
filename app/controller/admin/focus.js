@@ -60,24 +60,19 @@ class FocusController extends BaseController {
   async doAdd() {
     const file = this.ctx.request.files[0];
     const fileInfo = await this.service.tools.getUploadFile(file.filepath);
-    console.log(fileInfo);
     try {
       // 处理文件
-
       fs.writeFileSync(fileInfo.uploadDir, file.filepath);
     } finally {
       // 需要删除临时文件
       await fs.unlink(file.filepath);
     }
 
-    this.ctx.body = {
-      url: fileInfo.uploadDir,
-      // 获取所有的字段值
-      requestBody: this.ctx.request.body,
-    };
-
-
-    // await this.ctx.render('/admin/focus/index');
+    const fileField = this.ctx.request.body;
+    fileField.focus_img = fileInfo.saveDir;
+    const saveFile = new this.ctx.model.Focus(fileField);
+    await saveFile.save();
+    await this.success('/admin/focus', '添加轮播图成功');
   }
 }
 
