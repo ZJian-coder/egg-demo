@@ -33,8 +33,12 @@ module.exports = app => {
   router.get('/admin/access/edit', controller.admin.access.edit);
   router.post('/admin/access/doEdit', controller.admin.access.doEdit);
 
-  router.get('/admin/focus', controller.admin.focus.index);
+  router.get('/admin/focus/single', controller.admin.focus.single);
   router.get('/admin/focus/multi', controller.admin.focus.multi);
   router.post('/admin/focus/doSingleUpload', controller.admin.focus.doSingleUpload);
   router.post('/admin/focus/doMultiUpload', controller.admin.focus.doMultiUpload);
+
+  router.get('/admin/focus', controller.admin.focus.index);
+  router.get('/admin/focus/add', controller.admin.focus.add);
+  router.post('/admin/focus/doAdd', controller.admin.focus.doAdd);
 };

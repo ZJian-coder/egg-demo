@@ -1,13 +1,13 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('./base.js');
 
 const fs = require('fs');
 const path = require('path');
 
-class FocusController extends Controller {
-  async index() {
-    await this.ctx.render('/admin/focus/index');
+class FocusController extends BaseController {
+  async single() {
+    await this.ctx.render('/admin/focus/single');
   }
 
   async multi() {
@@ -16,7 +16,7 @@ class FocusController extends Controller {
 
   async doSingleUpload() {
     const file = this.ctx.request.files[0];
-    const name = 'app/public/upload/' + path.basename(file.filename);
+    const name = this.config.uploadPath + path.basename(file.filename);
     try {
       // 处理文件
       fs.writeFileSync(name, file.filepath);
@@ -36,7 +36,7 @@ class FocusController extends Controller {
     for (const file of this.ctx.request.files) {
       try {
         // 处理文件
-        const name = 'app/public/upload/' + path.basename(file.filename);
+        const name = this.config.uploadPath + path.basename(file.filename);
         fs.writeFileSync(name, file.filepath);
       } finally {
         // 需要删除临时文件
@@ -47,6 +47,37 @@ class FocusController extends Controller {
       // 获取所有的字段值
       requestBody: this.ctx.request.body,
     };
+  }
+
+  async index() {
+    await this.ctx.render('/admin/focus/index');
+  }
+
+  async add() {
+    await this.ctx.render('/admin/focus/add');
+  }
+
+  async doAdd() {
+    const file = this.ctx.request.files[0];
+    const fileInfo = await this.service.tools.getUploadFile(file.filepath);
+    console.log(fileInfo);
+    try {
+      // 处理文件
+
+      fs.writeFileSync(fileInfo.uploadDir, file.filepath);
+    } finally {
+      // 需要删除临时文件
+      await fs.unlink(file.filepath);
+    }
+
+    this.ctx.body = {
+      url: fileInfo.uploadDir,
+      // 获取所有的字段值
+      requestBody: this.ctx.request.body,
+    };
+
+
+    // await this.ctx.render('/admin/focus/index');
   }
 }
 
