@@ -13,4 +13,4 @@ run/
 typings/
 .nyc_output/
 .vscode/settings.json
-app/public/upload/
+app/public/admin/upload/
