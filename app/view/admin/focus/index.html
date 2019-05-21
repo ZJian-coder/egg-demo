@@ -25,6 +25,7 @@
                                     <th>分类</th>
                                     <th>图片</th>
                                     <th>跳转地址</th>
+                                    <th>排序</th>
                                     <th class="text-center">状态</th>
 
                                     <th class="text-center">操作</th>
@@ -56,6 +57,9 @@
                                                 <td><img class="pic" width="100px" src="<%=focusInfo[i].focus_img%>" />
                                     </td>
                                     <td><%=focusInfo[i].link%></td>
+                                    <td><span
+                                            onclick="changeAttr(this,'Focus','sort','<%=focusInfo[i]._id%>')"><%=focusInfo[i].sort%></span>
+                                    </td>
                                     <td class="text-center">
 
                                         <%if(focusInfo[i].status==1){%>

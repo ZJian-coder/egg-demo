@@ -29,7 +29,9 @@ class BaseController extends Controller {
     // 获取ID
     const _id = this.ctx.request.query._id;
     // 删除数据
-    await this.ctx.model[model].deleteOne({ _id });
+    await this.ctx.model[model].deleteOne({
+      _id,
+    });
     // 跳转到执行删除的页面
     this.ctx.redirect(this.ctx.state.prevPage);
   }
@@ -38,7 +40,9 @@ class BaseController extends Controller {
     const model = this.ctx.request.query.model;
     const attr = this.ctx.request.query.attr;
     const _id = this.ctx.request.query._id;
-    const result = await this.ctx.model[model].find({ _id });
+    const result = await this.ctx.model[model].find({
+      _id,
+    });
     if (result.length > 0) {
       let json = {
         [attr]: 1,
@@ -48,16 +52,56 @@ class BaseController extends Controller {
           [attr]: 0,
         };
       }
-      const updateResult = await this.ctx.model[model].updateOne({ _id }, json);
+      const updateResult = await this.ctx.model[model].updateOne({
+        _id,
+      }, json);
       if (updateResult) {
-        this.ctx.body = { msg: '更新成功', success: 'true' };
+        this.ctx.body = {
+          msg: '更新成功',
+          success: 'true',
+        };
       } else {
-        this.ctx.body = { msg: '更新失败', success: 'false' };
+        this.ctx.body = {
+          msg: '更新失败',
+          success: 'false',
+        };
       }
     } else {
       this.ctx.body = '参数错误！';
     }
   }
+
+  async changeAttr() {
+    const model = this.ctx.request.query.model;
+    const attr = this.ctx.request.query.attr;
+    const _id = this.ctx.request.query._id;
+    const val = this.ctx.request.query.val;
+    const result = await this.ctx.model[model].find({
+      _id,
+    });
+    if (result.length > 0) {
+      const json = {
+        [attr]: val,
+      };
+      const updateResult = await this.ctx.model[model].updateOne({
+        _id,
+      }, json);
+      if (updateResult) {
+        this.ctx.body = { // 需要返回数据，不然会报404错误
+          msg: '更新成功',
+          success: 'true',
+        };
+      } else {
+        this.ctx.body = {
+          msg: '更新失败',
+          success: 'false',
+        };
+      }
+    } else {
+      this.ctx.body = '参数错误！';
+    }
+  }
+
 }
 
 module.exports = BaseController;
