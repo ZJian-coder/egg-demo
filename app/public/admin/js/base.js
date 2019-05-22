@@ -8,6 +8,12 @@ $(function() {
     //		$(this).toggleClass('active')
     $(this).siblings('ul').slideToggle();
   });
+
+  // iframe框架高度
+  $('#rightMain').height($(window).height() - 100);
+  $(window).resize(function() {
+    $('#rightMain').height($(window).height() - 100);
+  });
 });
 
 function changeStatus(ele, model, attr, _id) {

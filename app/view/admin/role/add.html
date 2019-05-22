@@ -1,24 +1,19 @@
-<%- include ../public/page_header.html%>
-
-
+<link rel="stylesheet" href="/public/admin/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/public/admin/css/basic.css">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2">
-            <%- include ../public/page_aside.html%>			
-          
-        </div>
-        <div class="col-sm-10">
-          
-            <div class="panel panel-default">              
-			    <div class="panel-heading">
-                  增加角色
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    增加角色
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive input-form">
                         <form action="/admin/role/doAdd" method="post">
                             <input type="hidden" name="_csrf" value="<%=csrf%>" />
                             <ul>
-                                <li>  角色名称: <input type="text" name="title"/></li>
+                                <li> 角色名称: <input type="text" name="title" /></li>
 
                                 <li>
                                     商品描述:
@@ -26,7 +21,7 @@
                                 </li>
 
                                 <li>
-                                    <br/>
+                                    <br />
                                     <button type="submit" class="btn btn-default">提交</button>
                                 </li>
 
@@ -45,4 +40,5 @@
 </div>
 
 </body>
+
 </html>

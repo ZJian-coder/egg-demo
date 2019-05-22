@@ -13,10 +13,13 @@ class LoginController extends BaseController {
     if (verify === this.ctx.session.code) {
       const username = loginInfo.username;
       const password = await this.ctx.service.tools.md5(loginInfo.password);
-      const result = await this.ctx.model.Admin.find({ username, password });
+      const result = await this.ctx.model.Admin.find({
+        username,
+        password,
+      });
       if (result.length > 0) {
         this.ctx.session.userinfo = result[0];
-        this.ctx.redirect('/admin/manager');
+        this.ctx.redirect('/admin');
       } else {
         await this.error('/admin/login/', '用户不存在或密码错误！');
       }

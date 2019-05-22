@@ -1,12 +1,9 @@
-<%- include ../public/page_header.html%>
-
+<link rel="stylesheet" href="/public/admin/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/public/admin/css/basic.css">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2">
-            <%- include ../public/page_aside.html%>
-        </div>
-        <div class="col-sm-10">
-           
+        <div class="col-sm-12">
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     搜索
@@ -30,26 +27,29 @@
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
-                    <tr class="th">
-                        <th>序号</th>
-                        <th>名称</th>
-                        <th>手机</th>
-                        <th>邮箱</th>
-                        <th>角色</th>                      
-                        <th class="text-center">操作</th>
-                    </tr>
+                        <tr class="th">
+                            <th>序号</th>
+                            <th>名称</th>
+                            <th>手机</th>
+                            <th>邮箱</th>
+                            <th>角色</th>
+                            <th class="text-center">操作</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <%for(var i=0;i<adminList.length;i++){%>
-                    <tr>
-                        <td><%=i+1%></td>
-                        <td><%=adminList[i].username%></td>
-                        <td><%=adminList[i].mobile%></td>
-                        <td><%=adminList[i].email%></td>
-                        <td><%=adminList[i].role[0].title%></td>                   
-                        <td class="text-center"><a href="javascript:void(0)" onclick="changeStatus(this,'Admin','status','<%=adminList[i]._id%>')"><%=(adminList[i].status == 1 ? "启用":"禁用")%></a> <a href="/admin/manager/edit?_id=<%=adminList[i]._id%>">修改</a>  <a href="/admin/delete?model=Admin&_id=<%=adminList[i]._id%>">删除</a></td>
-                    </tr>
-                    <%}%>
+                        <%for(var i=0;i<adminList.length;i++){%>
+                        <tr>
+                            <td><%=i+1%></td>
+                            <td><%=adminList[i].username%></td>
+                            <td><%=adminList[i].mobile%></td>
+                            <td><%=adminList[i].email%></td>
+                            <td><%=adminList[i].role[0].title%></td>
+                            <td class="text-center"><a href="javascript:void(0)"
+                                    onclick="changeStatus(this,'Admin','status','<%=adminList[i]._id%>')"><%=(adminList[i].status == 1 ? "启用":"禁用")%></a>
+                                <a href="/admin/manager/edit?_id=<%=adminList[i]._id%>">修改</a> <a
+                                    href="/admin/delete?model=Admin&_id=<%=adminList[i]._id%>">删除</a></td>
+                        </tr>
+                        <%}%>
                     </tbody>
                 </table>
             </div>

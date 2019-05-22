@@ -1,39 +1,35 @@
-<%- include ../public/page_header.html%>
-
-
+<link rel="stylesheet" href="/public/admin/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/public/admin/css/basic.css">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2">
-            <%- include ../public/page_aside.html%>
-			
-          
-        </div>
-        <div class="col-sm-10">
-           
+        <div class="col-sm-12">
+
             <!--
                 列表展示
             -->
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
-                    <tr class="th">
-                        <th>序号</th>
-                        <th>角色名称</th>
-                        <th>角色描述</th>
-                        <th>添加时间</th>
-                        <th class="text-center">操作</th>
-                    </tr>
+                        <tr class="th">
+                            <th>序号</th>
+                            <th>角色名称</th>
+                            <th>角色描述</th>
+                            <th>添加时间</th>
+                            <th class="text-center">操作</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <%for(var i=0;i<roleInfo.length;i++){%>
-                    <tr>
-                        <td><%=(i+1)%></td>
-                        <td><%=roleInfo[i].title%></td>
-                        <td><%=roleInfo[i].description%></td>
-                        <td><%=roleInfo[i].add_time%></td>
-                        <td class="text-center"><a href="/admin/role/edit?_id=<%=roleInfo[i]._id%>">修改</a>   <a href="/admin/delete?model=Role&_id=<%=roleInfo[i]._id%>">删除</a>  <a href="/admin/role/auth?_id=<%=roleInfo[i]._id%>">授权</a> </td>
-                    </tr>
-                    <%}%>
+                        <%for(var i=0;i<roleInfo.length;i++){%>
+                        <tr>
+                            <td><%=(i+1)%></td>
+                            <td><%=roleInfo[i].title%></td>
+                            <td><%=roleInfo[i].description%></td>
+                            <td><%=helper.formatDate(roleInfo[i].add_time,'YYYY-MM-DD HH:mm')%></td>
+                            <td class="text-center"><a href="/admin/role/edit?_id=<%=roleInfo[i]._id%>">修改</a> <a
+                                    href="/admin/delete?model=Role&_id=<%=roleInfo[i]._id%>">删除</a> <a
+                                    href="/admin/role/auth?_id=<%=roleInfo[i]._id%>">授权</a> </td>
+                        </tr>
+                        <%}%>
                     </tbody>
                 </table>
             </div>

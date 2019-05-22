@@ -7,7 +7,7 @@
         <ul>
             <%for(var j=0;j<accessList[i].items.length;j++){%>
             <%if(accessList[i].items[j].checked == 'true' && accessList[i].items[j].type != 3 || (userinfo.is_super == 1 && accessList[i].items[j].type != 3)){%>
-            <li class="list-group-item"> <a href="<%=accessList[i].items[j].url%>">
+            <li class="list-group-item"> <a href="<%=accessList[i].items[j].url%>" target="rightMain">
                     <%=accessList[i].items[j].action_name%></a></li>
             <%}%>
             <%}%>
