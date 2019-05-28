@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="/public/admin/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/public/admin/css/basic.css">
+<script type="text/javascript" src="/public/admin/bootstrap/js/jquery-1.10.1.js"></script>
+<script type="text/javascript" src="/public/admin/js/base.js"></script>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/admin/goodsTypeAttribute/add?id=<%=cate_id%>" class="btn btn-primary">增加商品类型属性</a>
+    </div>
+    <div class="panel-body">
+        <!--
+                列表展示
+            -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>属性名称</th>
+                        <th>商品类型</th>
+                        <th>属性值的录入方式</th>
+                        <th>可选值列表</th>
+                        <th>增加时间</th>
+                        <th class="text-center">状态</th>
+
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <%for(var i=0;i<list.length;i++){%>
+
+
+                    <tr>
+                        <td><%=list[i].title%></td>
+
+                        <td><%=list[i].goods_type[0].title%></td>
+                        <td>
+                            <%if(list[i].attr_type==1){%>
+                            单行文本框
+                            <%}else if(list[i].attr_type==2){%>
+                            多行文本框
+                            <%}else if(list[i].attr_type==3){%>
+                            select下拉框
+                            <%}%>                                                
+                                            </td>
+                                            <td><%=list[i].attr_value%></td>
+
+                        <td><%=helper.formatDate(list[i].add_time,'YYYY-MM-DD HH:mm')%></td>
+
+                        <td class="text-center">
+
+                            <%if(list[i].status==1){%>
+
+                            <span
+                                onclick="changeStatus(this,'GoodsTypeAttribute','status','<%=list[i]._id%>')">启用</span>
+
+                            <%}else{%>
+                            <span
+                                onclick="changeStatus(this,'GoodsTypeAttribute','status','<%=list[i]._id%>')">禁用</span>
+                            <%}%>
+
+                                            </td>    
+                                                                
+                                            <td class="text-center"><a href="/admin/goodsTypeAttribute/edit?_id=<%=list[i]._id%>">修改</a>　<a
+                                class="delete" href="/admin/delete?model=GoodsTypeAttribute&_id=<%=list[i]._id%>">删除</a>
+                        </td>
+                    </tr>
+
+
+                    <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+</body>
+</html>

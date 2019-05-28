@@ -34,14 +34,9 @@ class GoodsTypeController extends BaseController {
   async doEdit() {
     const goodsTypeInfo = this.ctx.request.body;
     const _id = this.ctx.query._id;
-    const title = this.ctx.request.body.title;
-    const description = this.ctx.request.body.description;
     await this.ctx.model.GoodsType.updateOne({
       _id,
-    }, {
-      title,
-      description,
-    });
+    }, goodsTypeInfo);
     await this.success('/admin/goodsType', '编辑商品类型成功');
   }
 }
