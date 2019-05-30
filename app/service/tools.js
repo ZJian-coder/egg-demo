@@ -6,6 +6,7 @@ const md5 = require('md5');
 const sd = require('silly-datetime');
 const path = require('path');
 const mkdirp = require('mz-modules/mkdirp');
+const jimp = require('jimp');
 
 class ToolsService extends Service {
   // 生成验证码
@@ -49,6 +50,17 @@ class ToolsService extends Service {
       uploadDir,
       saveDir: uploadDir.slice(3).replace(/\\/g, '/'),
     };
+  }
+
+  // 生成缩略图
+  async jimpImg(imgPath) {
+    jimp.read(imgPath, (err, lenna) => {
+      if (err) throw err;
+      lenna
+        .resize(150, jimp.AUTO) // resize
+        .quality(70) // set JPEG quality
+        .write(imgPath + path.extname(imgPath)); // save
+    });
   }
 }
 
