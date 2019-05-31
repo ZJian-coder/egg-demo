@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1554298073279_162';
 
   // add your middleware config here
-  config.middleware = [ 'adminauth' ];
+  config.middleware = ['adminauth'];
   config.adminauth = {
     match: '/admin',
   };
@@ -43,6 +43,7 @@ module.exports = appInfo => {
     },
     multipart: {
       mode: 'file', // 开启文件上传的file模式
+      fields: '50', // 配置表单字段数量
     },
     uploadPath: 'app/public/admin/upload/',
   };

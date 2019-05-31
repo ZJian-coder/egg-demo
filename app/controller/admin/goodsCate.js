@@ -57,5 +57,56 @@ class GoodsCateController extends BaseController {
 
   }
 
+  async edit() {
+    const id = this.ctx.request.query.id;
+    const result = await this.ctx.model.GoodsCate.find({
+      _id: id,
+    });
+
+    const cateList = await this.ctx.model.GoodsCate.find({
+      pid: '0',
+    });
+
+    await this.ctx.render('admin/goodsCate/edit', {
+      cateList,
+      list: result[0],
+    });
+
+  }
+
+  async doEdit() {
+    const file = this.ctx.request.files[0];
+    let fileInfo = '';
+    if (file !== undefined) {
+      fileInfo = await this.service.tools.getUploadFile(file.filepath);
+      try {
+        // 处理文件
+        fs.createReadStream(file.filepath).pipe(fs.createWriteStream(fileInfo.uploadDir));
+      } finally {
+        // 需要删除临时文件
+        await fs.unlink(file.filepath);
+      }
+      // 生产缩略图
+      await this.ctx.service.tools.jimpImg(fileInfo.uploadDir);
+    }
+    const fileField = this.ctx.request.body;
+    if (fileInfo === '') {
+      delete fileField.cate_img;
+    } else {
+      fileField.cate_img = fileInfo.saveDir;
+    }
+
+    if (fileField.pid !== '0') {
+      fileField.pid = this.app.mongoose.Types.ObjectId(fileField.pid); // 调用mongoose里面的方法把字符串转换成ObjectId
+    }
+
+    const id = fileField.id;
+    await this.ctx.model.GoodsCate.updateOne({
+      _id: id,
+    }, fileField);
+    await this.success('/admin/goodsCate', '修改分类成功');
+
+  }
+
 }
 module.exports = GoodsCateController;

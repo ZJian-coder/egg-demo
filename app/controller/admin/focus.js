@@ -100,10 +100,8 @@ class FocusController extends BaseController {
         await fs.unlink(file.filepath);
       }
     }
-    const _id = this.ctx.request.query._id;
-    console.log(fileField);
     const result = await this.ctx.model.Focus.updateOne({
-      _id,
+      _id: fileField._id,
     }, fileField);
     console.log(result);
     await this.success('/admin/focus', '编辑轮播图成功');

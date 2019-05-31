@@ -43,7 +43,9 @@ module.exports = app => {
       type: Number,
       default: d.getTime(),
     },
-
+    sort: {
+      type: Number,
+    },
   });
 
   return mongoose.model('GoodsCate', GoodsCateSchema, 'goods_cate');
