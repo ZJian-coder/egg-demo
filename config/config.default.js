@@ -45,6 +45,17 @@ module.exports = appInfo => {
       mode: 'file', // 开启文件上传的file模式
       fields: '50', // 配置表单字段数量
     },
+    security: {
+      csrf: {
+        // 判断是否需要 ignore 的方法，请求上下文 context 作为第一个参数
+        ignore: ctx => {
+          if (ctx.request.url == '/admin/goods/goodsUploadImage' || ctx.request.url == '/admin/goods/goodsUploadPhoto') {
+            return true;
+          }
+          return false;
+        }
+      }
+    },
     uploadPath: 'app/public/admin/upload/',
   };
 
