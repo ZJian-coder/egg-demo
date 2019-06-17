@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1554298073279_162';
 
   // add your middleware config here
-  config.middleware = ['adminauth'];
+  config.middleware = [ 'adminauth' ];
   config.adminauth = {
     match: '/admin',
   };
@@ -41,6 +41,14 @@ module.exports = appInfo => {
         options: {},
       },
     },
+    redis: {
+      client: {
+        port: 6379, // Redis port
+        host: '127.0.0.1', // Redis host
+        password: '',
+        db: 0,
+      },
+    },
     multipart: {
       mode: 'file', // 开启文件上传的file模式
       fields: '50', // 配置表单字段数量
@@ -49,12 +57,12 @@ module.exports = appInfo => {
       csrf: {
         // 判断是否需要 ignore 的方法，请求上下文 context 作为第一个参数
         ignore: ctx => {
-          if (ctx.request.url == '/admin/goods/goodsUploadImage' || ctx.request.url == '/admin/goods/goodsUploadPhoto') {
+          if (ctx.request.url === '/admin/goods/goodsUploadImage' || ctx.request.url === '/admin/goods/goodsUploadPhoto') {
             return true;
           }
           return false;
-        }
-      }
+        },
+      },
     },
     uploadPath: 'app/public/admin/upload/',
   };
