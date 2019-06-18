@@ -8,8 +8,9 @@ class AccessController extends BaseController {
     // console.log(accessList);
     // 1、在access表中找出  module_id=0的数据        管理员管理 _id    权限管理 _id    角色管理  (模块)
     // 2、让access表和access表关联    条件：找出access表中  module_id等于_id的数据
-    const accessList = await this.ctx.model.Access.aggregate([
-      {
+    let accessList = await this.ctx.service.cache.get('accessList');
+    if (!accessList) {
+      accessList = await this.ctx.model.Access.aggregate([{
         $lookup: {
           from: 'access',
           localField: '_id',
@@ -22,14 +23,18 @@ class AccessController extends BaseController {
           module_id: '0',
         },
       },
-    ]);
+      ]);
+      await this.ctx.service.cache.set('accessList', accessList, 60 * 60);
+    }
     await this.ctx.render('admin/access/index', {
       accessList,
     });
   }
 
   async add() {
-    const moduleList = await this.ctx.model.Access.find({ module_id: '0' });
+    const moduleList = await this.ctx.model.Access.find({
+      module_id: '0',
+    });
     await this.ctx.render('/admin/access/add', {
       moduleList,
     });
@@ -47,9 +52,13 @@ class AccessController extends BaseController {
   }
 
   async edit() {
-    const moduleList = await this.ctx.model.Access.find({ module_id: '0' });
+    const moduleList = await this.ctx.model.Access.find({
+      module_id: '0',
+    });
     const _id = this.ctx.request.query._id;
-    const accessInfo = (await this.ctx.model.Access.find({ _id }))[0];
+    const accessInfo = (await this.ctx.model.Access.find({
+      _id,
+    }))[0];
     await this.ctx.render('/admin/access/edit', {
       moduleList,
       accessInfo,
@@ -63,7 +72,9 @@ class AccessController extends BaseController {
     if (module_id !== '0') {
       accessInfo.module_id = this.app.mongoose.Types.ObjectId(module_id); // 调用mongoose里面的方法把字符串转换成ObjectId
     }
-    await this.ctx.model.Access.updateOne({ _id }, accessInfo);
+    await this.ctx.model.Access.updateOne({
+      _id,
+    }, accessInfo);
     await this.success('/admin/access', '编辑权限成功');
   }
 }
