@@ -13,7 +13,6 @@ class CacheService extends Service {
         await this.app.redis.set(key, value);
       } else {
         await this.app.redis.set(key, value, 'EX', seconds);
-
       }
     }
   }
